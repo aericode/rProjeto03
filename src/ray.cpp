@@ -13,3 +13,7 @@ vec3 ray::origin () const {return A;}
 vec3 ray::direction () const {return B;}
 
 vec3 ray::point_at_parameter(float t) const {return A + t*B; }
+
+ray ray::getReverse() const {
+	return ray(B,A);
+}

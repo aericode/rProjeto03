@@ -11,6 +11,8 @@ public:
 	vec3 direction() const;
 	vec3 point_at_parameter(float) const;
 
+	ray getReverse() const;
+
 	vec3 A;
 	vec3 B;
 };
