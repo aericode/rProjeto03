@@ -1,16 +1,16 @@
 #ifndef CAMERAH
 #define CAMERAH
 
-#include <iostream>
 #include "ray.h"
+#include "vec3.h"
 #include "primitive_list.h"
 
 using namespace std;
-typedef vec3 Color;
 typedef vec3 Point;
+typedef vec3 Color;
 
 class Camera{
-private:
+protected:
 	vec3 origin;
 	vec3 vertical;
 	vec3 horizontal;

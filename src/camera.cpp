@@ -1,4 +1,3 @@
-#include <iostream>
 #include "ray.h"
 #include "camera.h"
 #include "primitive_list.h"

@@ -26,6 +26,8 @@ Plotter::Plotter(int xSize,int ySize, string fileName){
 	clear();
 }
 
+Plotter::~Plotter(){}
+
 int Plotter::matrixToLine(int x, int y){
 	return x + ( (ySize-1)-y)*xSize;
 }
