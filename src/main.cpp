@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 
+#include "json.hpp"
+#include "jsonReader.h"
+#include "perspective_camera.h"
 #include "orthogonal_camera.h"
 #include "camera.h"
 #include "ray.h"
@@ -9,26 +12,15 @@
 #include "primitive_list.h"
 
 
+using json::JSON;
 typedef vec3 Color;
 typedef vec3 Point;
 
 int main(){
 	
-	Orthogonal_camera cam = Orthogonal_camera(Point(0,0,0),Point(0,2,0),Point(4,0,0),Point(-2,-1,-1));
-
-
-	int num_primitives = 1;
-
-	Primitive **list = new  Primitive*[num_primitives];
-
-	Point loc(0,0,-1);
-	float radius = 0.5;
-
-	Sphere *bola = new Sphere(loc,radius);
-
-	list[0] = bola;
-
-	Primitive_list *world = new Primitive_list(list, num_primitives);
+	JSON obj = parseFile("./jsonInput/scene.json");
+	Perspective_camera cam = Perspective_camera(Point(0,0,-2),Point(0,2,0),Point(4,0,0),Point(-2,-1,-1));
+	Primitive_list *world = primitivesFromJSON(obj);
 
 	int nx = 200;
 	int ny = 100;

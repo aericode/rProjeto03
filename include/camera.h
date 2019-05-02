@@ -27,7 +27,7 @@ public:
 
 	Color sample(const ray&, Primitive_list *world);
 
-	virtual ray traceRay(float, float)=0;
+	virtual ray traceRay(float, float){}
 };
 
 #endif
