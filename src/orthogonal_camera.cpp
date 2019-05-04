@@ -14,13 +14,20 @@ Orthogonal_camera::Orthogonal_camera(Point origin, Point vertical, Point horizon
 
 ray Orthogonal_camera::traceRay(float x, float y){
 
-	Point origin = corner + x*horizontal + y*vertical;
+	/*
+	
+	Point rayOrigin = corner + x*horizontal + y*vertical;
 
-	Point direction = origin;
-	direction[2]  = (-1)*corner.z();
+	Point direction = rayOrigin;
 
-	ray generated(origin, direction);
+	direction[2] = (-1)*corner.z();
+
+	ray generated(rayOrigin, direction);
 
 	return generated;
-	
+	*/
+
+	Point direction = corner + x*horizontal + y*vertical;
+	ray generated(origin, direction);
+	return generated;
 }

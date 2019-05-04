@@ -1,5 +1,6 @@
 {
     "camera":{
+        "type":"perspective",
         "origin":[0.0,0.0,0.0],
         "horizontal":[4.0,0.0,0.0],
         "vertical":[0.0,2.0,0.0],

@@ -8,6 +8,7 @@
 
 #include "vec3.h"
 #include "orthogonal_camera.h"
+#include "perspective_camera.h"
 #include "camera.h"
 #include "sphere.h"
 #include "primitive.h"
@@ -43,11 +44,11 @@ JSON parseFile(string filename){
     return obj;
 }
 
-Camera cameraFromJSON(JSON obj){
+Camera* cameraFromJSON(JSON obj){
 
     if (obj["camera"].IsNull()){
         std::cout<<"no instructions for camera in JSON file"<<std::endl;
-        return Orthogonal_camera();
+        return nullptr;
     }else{
         string camParts[4] = {"origin","vertical","horizontal","corner"};
         vec3 aux[4];
@@ -58,7 +59,12 @@ Camera cameraFromJSON(JSON obj){
             }
         }
         if(obj["camera"]["type"].ToString()=="orthogonal"){
-            return Orthogonal_camera(aux[0],aux[1],aux[2],aux[3]);
+            return new Orthogonal_camera(aux[0],aux[1],aux[2],aux[3]);
+        }else if(obj["camera"]["type"].ToString()=="perspective"){
+            return new Perspective_camera(aux[0],aux[1],aux[2],aux[3]);
+        }else{
+            std::cout<<"no instructions for camera type in JSON file"<<std::endl;
+            return nullptr;
         }
     }
 }
