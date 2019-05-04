@@ -45,7 +45,7 @@ Color Camera::fadeBG(const ray& r){
 }
 
 
-Color Camera::sample(const ray& r, Primitive_list *world){
+Color Camera::sample(const ray& r, shared_ptr<Primitive_list> world){
 	if(world->intersect_p(r,MINSIGHT,MAXSIGHT)){
 		return vec3(1,0,0);
 	}

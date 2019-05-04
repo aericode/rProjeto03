@@ -1,6 +1,7 @@
 #ifndef CAMERAH
 #define CAMERAH
 
+#include <memory>
 #include "ray.h"
 #include "vec3.h"
 #include "primitive_list.h"
@@ -25,7 +26,7 @@ public:
 
 	Color fadeBG(const ray&);
 
-	Color sample(const ray&, Primitive_list *world);
+	Color sample(const ray&, shared_ptr<Primitive_list> world);
 
 	virtual ray traceRay(float, float){}
 };

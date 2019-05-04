@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 #include "json.hpp"
 #include "jsonReader.h"
@@ -22,9 +23,8 @@ int main(){
 
 	//TODO consertar câmera ortogonal
 	//Orthogonal_camera cam = Orthogonal_camera(Point(0,0,0),Point(0,2,0),Point(4,0,0),Point(-2,-1,-1));
-	Camera* cam = cameraFromJSON(obj);
-	//Perspective_camera cam = Perspective_camera(Point(0,0,0),Point(0,2,0),Point(4,0,0),Point(-2,-1,-1));
-	Primitive_list *world = primitivesFromJSON(obj);
+	shared_ptr<Camera> cam = cameraFromJSON(obj);
+	shared_ptr<Primitive_list> world = primitivesFromJSON(obj);
 
 	int nx = 200;
 	int ny = 100;
@@ -40,7 +40,7 @@ int main(){
 			ray r = cam->traceRay(u,v);
 
 			//COL recebe um raio
-			vec3 col = cam->sample(r, world);
+			Color col = cam->sample(r, world);
 
 			int ir  = int(255.99*col[0]);
 			int ig  = int(255.99*col[1]);

@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #include <string>
-
+#include <memory>
 
 #include "vec3.h"
 #include "orthogonal_camera.h"
@@ -44,7 +44,7 @@ JSON parseFile(string filename){
     return obj;
 }
 
-Camera* cameraFromJSON(JSON obj){
+shared_ptr<Camera> cameraFromJSON(JSON obj){
 
     if (obj["camera"].IsNull()){
         std::cout<<"no instructions for camera in JSON file"<<std::endl;
@@ -59,9 +59,9 @@ Camera* cameraFromJSON(JSON obj){
             }
         }
         if(obj["camera"]["type"].ToString()=="orthogonal"){
-            return new Orthogonal_camera(aux[0],aux[1],aux[2],aux[3]);
+            return make_shared<Orthogonal_camera>(aux[0],aux[1],aux[2],aux[3]);
         }else if(obj["camera"]["type"].ToString()=="perspective"){
-            return new Perspective_camera(aux[0],aux[1],aux[2],aux[3]);
+            return make_shared<Perspective_camera>(aux[0],aux[1],aux[2],aux[3]);
         }else{
             std::cout<<"no instructions for camera type in JSON file"<<std::endl;
             return nullptr;
@@ -69,7 +69,7 @@ Camera* cameraFromJSON(JSON obj){
     }
 }
 
-Primitive_list * primitivesFromJSON(JSON obj){
+shared_ptr<Primitive_list> primitivesFromJSON(JSON obj){
     if (obj["primitives"].IsNull()){
         std::cout<<"no instructions for primitives in JSON file"<<std::endl;
         return nullptr;
@@ -95,9 +95,7 @@ Primitive_list * primitivesFromJSON(JSON obj){
 
             list[i] = new Sphere(aux, radius);
         }
-        
-        Primitive_list * result = new Primitive_list(list, num_primitives);
 
-        return result;
+        return make_shared<Primitive_list>(list, num_primitives);
     }
 }
